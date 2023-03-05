@@ -2,7 +2,7 @@ name: Changed files checking and Tabs counting
 on:
   pull_request:
     branches:
-    - main
+    - master
     - slave
 jobs:
   prepare:
