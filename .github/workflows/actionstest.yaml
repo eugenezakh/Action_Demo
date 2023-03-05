@@ -19,7 +19,7 @@ jobs:
         - name: List of changed files
           run: |
             for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              echo "$This file was changed and will be added into report" >> changed_files_list.log
+              echo "$file" >> changed_files_list.log
               done
         - name: Report generating
           uses: actions/upload-artifact@v2
