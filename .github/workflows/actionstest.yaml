@@ -1,5 +1,6 @@
 name: Changed files checking and Tabs counting
 on:
+  push:
   pull_request:
     branches:
     - master
