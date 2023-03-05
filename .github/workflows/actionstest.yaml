@@ -1,0 +1,36 @@
+name: Changed files checking and Tabs counting
+on:
+  pull_request:
+    branches:
+    - main
+    - slave
+jobs:
+  prepare:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        - name: Get changed files
+          id: changed-files
+          uses: tj-actions/changed-files@v35
+
+        - name: List of changed files
+          run: |
+            for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+              echo "$This file was changed and will be added into report" >> changed_files_list.log
+              done
+        - name: Report generating
+          uses: actions/upload-artifact@v2
+          with:
+            path: changed_files_list.log
+
+        - name: Tabs finder
+          run: |
+               for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+               echo "The $file has `grep -P '\t' $file | wc -l` tabs" >> tabs_report.log
+               done        
+        - name: Upload report
+          uses: actions/upload-artifact@v2
+          with:
+            path: tabs_report.log
